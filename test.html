@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Test</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="test-container">
+        <header class="test-header">
+            <div id="testNameHeader">Online Test</div>
+            <div class="timer" id="timer">00:00</div>
+        </header>
+        
+        <div class="test-content">
+            <div class="question-area">
+                <div class="question-header">
+                    <span id="questionNumber">Question 1 of 10</span>
+                </div>
+                <div id="questionText" class="question-text"></div>
+                <div id="options" class="options"></div>
+            </div>
+            
+            <div class="navigation">
+                <button onclick="prevQuestion()" class="btn secondary">Previous</button>
+                <button onclick="nextQuestion()" class="btn primary">Next</button>
+                <button onclick="submitTestEarly()" class="btn danger">Submit Test</button>
+            </div>
+            
+            <div class="question-nav">
+                <h4>Jump to Question</h4>
+                <div id="questionDots" class="dots"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="test.js"></script>
+</body>
+</html>
