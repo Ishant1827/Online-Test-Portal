@@ -154,7 +154,7 @@ name="answer"
 value="${option.key}"
 ${answers[q.questionId] === option.key ? "checked" : ""}
 >
-
+}
 ${option.value}
 
 `;
