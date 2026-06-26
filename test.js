@@ -90,9 +90,34 @@ function renderQuestion() {
             renderQuestionDots();
         });
     });
+const optionsDiv = document.getElementById('options');
 
-    renderQuestionDots();
-}
+optionsDiv.innerHTML = `
+<label><input type="radio" name="answer" value="A"> ${q.optionA}</label><br><br>
+<label><input type="radio" name="answer" value="B"> ${q.optionB}</label><br><br>
+<label><input type="radio" name="answer" value="C"> ${q.optionC}</label><br><br>
+<label><input type="radio" name="answer" value="D"> ${q.optionD}</label>
+`;
+
+const radios = document.querySelectorAll('input[name="answer"]');
+
+radios.forEach(radio => {
+
+    if (answers[q.questionId] === radio.value) {
+        radio.checked = true;
+    }
+
+    radio.addEventListener("change", function () {
+
+        answers[q.questionId] = this.value;
+
+        console.log("Saved Answer:", answers);
+
+        renderQuestionDots();
+
+    });
+
+});
 
 function renderQuestionDots() {
     const container = document.getElementById('questionDots');
