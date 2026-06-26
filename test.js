@@ -15,7 +15,7 @@ async function loadTest() {
     }
 
     try {
-        const result = await apiCall('getQuestions', null); // Pass testId properly in backend if needed
+        const result = await apiCall(`getQuestions&testId=${encodeURIComponent(testId)}`); // Pass testId properly in backend if needed
         // Note: Update backend if needed to accept testId
 
         questions = result.questions || [];
