@@ -14,7 +14,7 @@ async function loadTest() {
         return;
     }
 
-    try {
+try {
 
     const result = await apiCall(`getQuestions&testId=${encodeURIComponent(testId)}`);
 
@@ -25,7 +25,8 @@ async function loadTest() {
 
     console.log("First Question:", questions[0]);
 
-    document.getElementById('testNameHeader').textContent = result.testName || "Online Test";
+    document.getElementById("testNameHeader").textContent =
+        result.testName || "Online Test";
 
     if (questions.length === 0) {
         alert("No questions found in this test.");
@@ -34,21 +35,15 @@ async function loadTest() {
     }
 
     timeLeft = (result.duration || 30) * 60;
+
     startTimer();
     renderQuestion();
     renderQuestionDots();
 
 } catch (err) {
-    console.error(err);
-}
 
-        timeLeft = (result.duration || 30) * 60;
-        startTimer();
-        renderQuestion();
-        renderQuestionDots();
-    } catch (err) {
-        console.error(err);
-    }
+    console.error(err);
+
 }
 
 function startTimer() {
