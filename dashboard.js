@@ -27,7 +27,9 @@ async function loadAvailableTests() {
                 card.innerHTML = `
                     <h3>${test.testName}</h3>
                     <p>Duration: ${test.duration} minutes</p>
-                    <button onclick="startTest(${test.testId})" class="btn primary">Start Test</button>
+                    <button onclick="startTest('${test.testId}')" class="btn primary">
+    Start Test
+</button>
                 `;
                 container.appendChild(card);
             });
