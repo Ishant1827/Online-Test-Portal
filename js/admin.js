@@ -1,7 +1,7 @@
 // js/admin.js
 let currentAdmin = null;
 
-const WEB_APP_URL = getWebAppUrl();
+const https://script.google.com/macros/s/AKfycbyml1-OMcWE8Dj-MN8PvPq5uzEykjY-S_mKvRbMe8QnSyE0VRQTGpUZPNnUApvKDQypMg/exec = getWebAppUrl();
 
 function adminLogin() {
     const username = document.getElementById('adminUsername').value;
