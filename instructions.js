@@ -8,8 +8,12 @@ async function loadTestInfo() {
     }
 
     try {
-        const result = await apiCall('getTestInfo&testId=' + testId);  // Note: You may need to update backend
-        currentTest = result.test;
+        const result = await apiCall(`getQuestions&testId=${testId}`);  // Note: You may need to update backend
+        currentTest = {
+    testId: testId,
+    testName: result.testName,
+    duration: result.duration
+};
         
         document.getElementById('testTitle').textContent = currentTest.testName;
         document.getElementById('duration').textContent = currentTest.duration;
