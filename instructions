@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Instructions - Online Test Portal</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📚 Online Test Portal</h1>
+        </header>
+        
+        <main class="instructions-page">
+            <div class="card">
+                <h2 id="testTitle">Loading Test...</h2>
+                <div id="testInfo"></div>
+                
+                <h3>Instructions</h3>
+                <ul>
+                    <li>Total Time: <span id="duration">30</span> minutes</li>
+                    <li>You can navigate between questions using Previous/Next or dots</li>
+                    <li>Timer starts as soon as you click "Start Test"</li>
+                    <li>Test will auto-submit when time is over</li>
+                    <li>Each test can be attempted only once</li>
+                </ul>
+                
+                <button onclick="startTest()" class="btn primary large">Start Test</button>
+                <button onclick="goBackToDashboard()" class="btn secondary">← Back to Dashboard</button>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="instructions.js"></script>
+</body>
+</html>
