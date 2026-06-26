@@ -50,74 +50,45 @@ function startTimer() {
 }
 
 function renderQuestion() {
+
     const q = questions[currentQuestionIndex];
-    console.log(questions[currentQuestionIndex]);
+
     if (!q) return;
 
-    document.getElementById('questionNumber').textContent = 
+    document.getElementById("questionNumber").textContent =
         `Question ${currentQuestionIndex + 1} of ${questions.length}`;
 
-    document.getElementById('questionText').textContent = q.questionText;
+    document.getElementById("questionText").textContent = q.questionText;
 
-    const optionsDiv = document.getElementById('options');
+    const optionsDiv = document.getElementById("options");
+
     optionsDiv.innerHTML = `
-        <label><input type="radio" name="answer" value="A" ${answers[q.questionId] === 'A' ? 'checked' : ''}> ${q.optionA}</label><br><br>
-        <label><input type="radio" name="answer" value="B" ${answers[q.questionId] === 'B' ? 'checked' : ''}> ${q.optionB}</label><br><br>
-        <label><input type="radio" name="answer" value="C" ${answers[q.questionId] === 'C' ? 'checked' : ''}> ${q.optionC}</label><br><br>
-        <label><input type="radio" name="answer" value="D" ${answers[q.questionId] === 'D' ? 'checked' : ''}> ${q.optionD}</label>
+        <label><input type="radio" name="answer" value="A" ${answers[q.questionId] == "A" ? "checked" : ""}> ${q.optionA}</label><br><br>
+
+        <label><input type="radio" name="answer" value="B" ${answers[q.questionId] == "B" ? "checked" : ""}> ${q.optionB}</label><br><br>
+
+        <label><input type="radio" name="answer" value="C" ${answers[q.questionId] == "C" ? "checked" : ""}> ${q.optionC}</label><br><br>
+
+        <label><input type="radio" name="answer" value="D" ${answers[q.questionId] == "D" ? "checked" : ""}> ${q.optionD}</label>
     `;
 
-    // Save answer on change
-    optionsDiv.querySelectorAll('input').forEach(input => {
-        input.addEventListener('change', () => {
-            answers[q.questionId] = input.value;
+    const radios = document.querySelectorAll('input[name="answer"]');
+
+    radios.forEach(radio => {
+
+        radio.addEventListener("change", function () {
+
+            answers[q.questionId] = this.value;
+
+            console.log("Saved Answer:", answers);
+
             renderQuestionDots();
+
         });
-    });
-const optionsDiv = document.getElementById('options');
-
-optionsDiv.innerHTML = `
-<label><input type="radio" name="answer" value="A"> ${q.optionA}</label><br><br>
-<label><input type="radio" name="answer" value="B"> ${q.optionB}</label><br><br>
-<label><input type="radio" name="answer" value="C"> ${q.optionC}</label><br><br>
-<label><input type="radio" name="answer" value="D"> ${q.optionD}</label>
-`;
-
-const radios = document.querySelectorAll('input[name="answer"]');
-
-radios.forEach(radio => {
-
-    if (answers[q.questionId] === radio.value) {
-        radio.checked = true;
-    }
-
-    radio.addEventListener("change", function () {
-
-        answers[q.questionId] = this.value;
-
-        console.log("Saved Answer:", answers);
-
-        renderQuestionDots();
 
     });
 
-});
-
-const radios = document.querySelectorAll('input[name="answer"]');
-
-radios.forEach(radio => {
-
-    radio.addEventListener("click", function () {
-
-        answers[q.questionId] = this.value;
-
-        console.log("Saved Answer:", answers);
-
-        renderQuestionDots();
-
-    });
-
-});
+}
 
 function nextQuestion() {
     if (currentQuestionIndex < questions.length - 1) {
