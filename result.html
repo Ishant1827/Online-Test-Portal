@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Result</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📚 Online Test Portal</h1>
+        </header>
+        
+        <main class="result-page">
+            <div class="result-card">
+                <h2>Test Result</h2>
+                <div id="resultSummary" class="result-summary"></div>
+                
+                <div class="score-circle">
+                    <div id="percentageCircle" class="circle">
+                        <span id="scorePercentage">0</span>%
+                    </div>
+                </div>
+                
+                <table class="result-table">
+                    <tr>
+                        <td>Correct Answers</td>
+                        <td id="correctCount" class="correct">0</td>
+                    </tr>
+                    <tr>
+                        <td>Wrong Answers</td>
+                        <td id="wrongCount" class="wrong">0</td>
+                    </tr>
+                    <tr>
+                        <td>Unanswered</td>
+                        <td id="unansweredCount">0</td>
+                    </tr>
+                    <tr>
+                        <td>Your Score</td>
+                        <td id="finalScore">0 / 100</td>
+                    </tr>
+                </table>
+                
+                <div id="passFail" class="pass-fail"></div>
+                
+                <button onclick="goToDashboard()" class="btn primary">Back to Dashboard</button>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="result.js"></script>
+</body>
+</html>
