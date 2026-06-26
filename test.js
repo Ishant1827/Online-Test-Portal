@@ -16,35 +16,19 @@ async function loadTest() {
 
 try {
 
-    const result = await apiCall(`getQuestions&testId=${encodeURIComponent(testId)}`);
+    console.log("Answers Submitted:", answers);
 
-    console.log("API Result:", result);
-    console.log("Questions:", result.questions);
+    const result = await apiCall('submitTest', {
+        studentId: student.studentId,
+        testId: testId,
+        answers: answers
+    });
 
-    questions = result.questions || [];
-
-    console.log("First Question:", questions[0]);
-
-    document.getElementById("testNameHeader").textContent =
-        result.testName || "Online Test";
-
-    if (questions.length === 0) {
-        alert("No questions found in this test.");
-        window.location.href = "dashboard.html";
-        return;
-    }
-
-    timeLeft = (result.duration || 30) * 60;
-
-    startTimer();
-    renderQuestion();
-    renderQuestionDots();
+    localStorage.setItem('latestResult', JSON.stringify(result));
+    window.location.href = "result.html";
 
 } catch (err) {
-
     console.error(err);
-
-}
 }
 
 function startTimer() {
@@ -119,21 +103,21 @@ radios.forEach(radio => {
 
 });
 
-function renderQuestionDots() {
-    const container = document.getElementById('questionDots');
-    container.innerHTML = '';
+const radios = document.querySelectorAll('input[name="answer"]');
 
-    questions.forEach((q, i) => {
-        const dot = document.createElement('div');
-        dot.className = `dot ${answers[q.questionId] ? 'answered' : ''} ${i === currentQuestionIndex ? 'current' : ''}`;
-        dot.textContent = i + 1;
-        dot.onclick = () => {
-            currentQuestionIndex = i;
-            renderQuestion();
-        };
-        container.appendChild(dot);
+radios.forEach(radio => {
+
+    radio.addEventListener("click", function () {
+
+        answers[q.questionId] = this.value;
+
+        console.log("Saved Answer:", answers);
+
+        renderQuestionDots();
+
     });
-}
+
+});
 
 function nextQuestion() {
     if (currentQuestionIndex < questions.length - 1) {
