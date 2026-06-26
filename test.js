@@ -15,17 +15,32 @@ async function loadTest() {
     }
 
     try {
-        const result = await apiCall(`getQuestions&testId=${encodeURIComponent(testId)}`); // Pass testId properly in backend if needed
-        // Note: Update backend if needed to accept testId
 
-        questions = result.questions || [];
-        document.getElementById('testNameHeader').textContent = result.testName || "Online Test";
+    const result = await apiCall(`getQuestions&testId=${encodeURIComponent(testId)}`);
 
-        if (questions.length === 0) {
-            alert("No questions found in this test.");
-            window.location.href = "dashboard.html";
-            return;
-        }
+    console.log("API Result:", result);
+    console.log("Questions:", result.questions);
+
+    questions = result.questions || [];
+
+    console.log("First Question:", questions[0]);
+
+    document.getElementById('testNameHeader').textContent = result.testName || "Online Test";
+
+    if (questions.length === 0) {
+        alert("No questions found in this test.");
+        window.location.href = "dashboard.html";
+        return;
+    }
+
+    timeLeft = (result.duration || 30) * 60;
+    startTimer();
+    renderQuestion();
+    renderQuestionDots();
+
+} catch (err) {
+    console.error(err);
+}
 
         timeLeft = (result.duration || 30) * 60;
         startTimer();
@@ -56,6 +71,7 @@ function startTimer() {
 
 function renderQuestion() {
     const q = questions[currentQuestionIndex];
+    console.log(questions[currentQuestionIndex]);
     if (!q) return;
 
     document.getElementById('questionNumber').textContent = 
