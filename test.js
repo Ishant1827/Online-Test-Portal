@@ -45,6 +45,7 @@ try {
     console.error(err);
 
 }
+}
 
 function startTimer() {
     const timerEl = document.getElementById('timer');
