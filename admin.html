@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Online Test Portal</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Admin Panel</h1>
+        </header>
+        
+        <div id="adminLoginForm">
+            <h2>Admin Login</h2>
+            <div class="form-group">
+                <input type="text" id="adminUsername" placeholder="Username" required>
+            </div>
+            <div class="form-group">
+                <input type="password" id="adminPassword" placeholder="Password" required>
+            </div>
+            <button onclick="adminLogin()" class="btn primary full-width">Login as Admin</button>
+        </div>
+        
+        <div id="adminDashboard" class="hidden">
+            <div class="admin-tabs">
+                <button onclick="showTab(0)" class="tab-btn active">Students</button>
+                <button onclick="showTab(1)" class="tab-btn">Tests</button>
+                <button onclick="showTab(2)" class="tab-btn">Questions</button>
+                <button onclick="showTab(3)" class="tab-btn">Results</button>
+            </div>
+            
+            <div id="tab0" class="tab-content">
+                <h3>Manage Students</h3>
+                <table id="studentsTable"></table>
+            </div>
+            <div id="tab1" class="tab-content hidden">
+                <h3>Manage Tests</h3>
+                <table id="testsTable"></table>
+            </div>
+            <div id="tab2" class="tab-content hidden">
+                <h3>Manage Questions</h3>
+                <table id="questionsTable"></table>
+            </div>
+            <div id="tab3" class="tab-content hidden">
+                <h3>View Results</h3>
+                <table id="resultsTable"></table>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="admin.js"></script>
+</body>
+</html>
