@@ -1,53 +1,116 @@
+// ==========================================
+// TEST.JS PART 1
+// ==========================================
+
 let questions = [];
 let currentQuestionIndex = 0;
 let answers = {};
 let timerInterval;
-let timeLeft = 1800; // 30 minutes default
+let timeLeft = 1800;
+
+// ==========================================
+// LOAD TEST
+// ==========================================
 
 async function loadTest() {
+
     const urlParams = new URLSearchParams(window.location.search);
-    const testId = urlParams.get('testId');
+
+    const testId = urlParams.get("testId");
 
     if (!testId) {
-        alert("Test ID not found!");
+
+        alert("Test ID not found.");
+
         window.location.href = "dashboard.html";
+
         return;
+
     }
 
-try {
+    try {
 
-    console.log("Answers Submitted:", answers);
+        const result = await apiCall(
+            `getQuestions&testId=${encodeURIComponent(testId)}`
+        );
 
-    const result = await apiCall('submitTest', {
-        studentId: student.studentId,
-        testId: testId,
-        answers: answers
-    });
+        if (!result.success) {
 
-    localStorage.setItem('latestResult', JSON.stringify(result));
-    window.location.href = "result.html";
+            alert(result.message);
 
-} catch (err) {
-    console.error(err);
+            window.location.href = "dashboard.html";
+
+            return;
+
+        }
+
+        questions = result.questions;
+
+        document.getElementById("testNameHeader").innerText =
+            result.testName;
+
+        timeLeft = Number(result.duration) * 60;
+
+        startTimer();
+
+        renderQuestion();
+
+        renderQuestionDots();
+
+    }
+
+    catch (err) {
+
+        console.error(err);
+
+        alert("Unable to load test.");
+
+    }
+
 }
+
+// ==========================================
+// TIMER
+// ==========================================
 
 function startTimer() {
-    const timerEl = document.getElementById('timer');
-    
-    timerInterval = setInterval(() => {
-        timeLeft--;
-        const min = Math.floor(timeLeft / 60);
-        const sec = timeLeft % 60;
-        timerEl.textContent = `${min.toString().padStart(2, '0')}:${sec.toString().padStart(2, '0')}`;
 
-        if (timeLeft <= 300) timerEl.style.background = "#f39c12"; // Orange warning
+    const timer = document.getElementById("timer");
+
+    timerInterval = setInterval(function () {
+
+        const min = Math.floor(timeLeft / 60);
+
+        const sec = timeLeft % 60;
+
+        timer.innerText =
+            String(min).padStart(2, "0") +
+            ":" +
+            String(sec).padStart(2, "0");
+
+        if (timeLeft <= 300) {
+
+            timer.style.color = "red";
+
+        }
 
         if (timeLeft <= 0) {
+
             clearInterval(timerInterval);
+
             submitTest(true);
+
         }
+
+        timeLeft--;
+
     }, 1000);
+
 }
+
+// ==========================================
+// RENDER QUESTION
+// ==========================================
 
 function renderQuestion() {
 
@@ -55,82 +118,248 @@ function renderQuestion() {
 
     if (!q) return;
 
-    document.getElementById("questionNumber").textContent =
+    document.getElementById("questionNumber").innerText =
         `Question ${currentQuestionIndex + 1} of ${questions.length}`;
 
-    document.getElementById("questionText").textContent = q.questionText;
+    document.getElementById("questionText").innerText =
+        q.questionText;
 
-    const optionsDiv = document.getElementById("options");
+    const options = document.getElementById("options");
 
-    optionsDiv.innerHTML = `
-        <label><input type="radio" name="answer" value="A" ${answers[q.questionId] == "A" ? "checked" : ""}> ${q.optionA}</label><br><br>
+    options.innerHTML = "";
 
-        <label><input type="radio" name="answer" value="B" ${answers[q.questionId] == "B" ? "checked" : ""}> ${q.optionB}</label><br><br>
+    const optionList = [
 
-        <label><input type="radio" name="answer" value="C" ${answers[q.questionId] == "C" ? "checked" : ""}> ${q.optionC}</label><br><br>
+        { key: "A", value: q.optionA },
 
-        <label><input type="radio" name="answer" value="D" ${answers[q.questionId] == "D" ? "checked" : ""}> ${q.optionD}</label>
-    `;
+        { key: "B", value: q.optionB },
 
-    const radios = document.querySelectorAll('input[name="answer"]');
+        { key: "C", value: q.optionC },
 
-    radios.forEach(radio => {
+        { key: "D", value: q.optionD }
 
-        radio.addEventListener("change", function () {
+    ];
 
-            answers[q.questionId] = this.value;
+    optionList.forEach(option => {
 
-            console.log("Saved Answer:", answers);
+        const label = document.createElement("label");
+
+        label.className = "option";
+
+        label.innerHTML = `
+
+<input
+type="radio"
+name="answer"
+value="${option.key}"
+${answers[q.questionId] === option.key ? "checked" : ""}
+>
+
+${option.value}
+
+`;
+
+        options.appendChild(label);
+
+        options.appendChild(document.createElement("br"));
+
+        options.appendChild(document.createElement("br"));
+
+    });
+
+    document
+        .querySelectorAll('input[name="answer"]')
+        .forEach(input => {
+
+            input.addEventListener("change", function () {
+
+                answers[q.questionId] = this.value;
+
+                console.log("Saved Answer:", answers);
+
+                renderQuestionDots();
+
+            });
+
+        });
+
+}
+
+// ==========================================
+// QUESTION DOTS
+// ==========================================
+
+function renderQuestionDots() {
+
+    const container = document.getElementById("questionDots");
+
+    container.innerHTML = "";
+
+    questions.forEach((q, index) => {
+
+        const dot = document.createElement("button");
+
+        dot.innerText = index + 1;
+
+        dot.className = "dot";
+
+        if (answers[q.questionId]) {
+            dot.classList.add("answered");
+        }
+
+        if (index === currentQuestionIndex) {
+            dot.classList.add("current");
+        }
+
+        dot.onclick = function () {
+
+            currentQuestionIndex = index;
+
+            renderQuestion();
 
             renderQuestionDots();
 
-        });
+        };
+
+        container.appendChild(dot);
 
     });
 
 }
 
+// ==========================================
+// NEXT QUESTION
+// ==========================================
+
 function nextQuestion() {
+
     if (currentQuestionIndex < questions.length - 1) {
+
         currentQuestionIndex++;
+
         renderQuestion();
+
+        renderQuestionDots();
+
     }
+
 }
+
+// ==========================================
+// PREVIOUS QUESTION
+// ==========================================
 
 function prevQuestion() {
+
     if (currentQuestionIndex > 0) {
+
         currentQuestionIndex--;
+
         renderQuestion();
+
+        renderQuestionDots();
+
     }
+
 }
+
+// ==========================================
+// SUBMIT TEST
+// ==========================================
 
 async function submitTest(isAuto = false) {
-    clearInterval(timerInterval);
-    
-    const urlParams = new URLSearchParams(window.location.search);
-    const testId = urlParams.get('testId');
-    const student = JSON.parse(localStorage.getItem('student'));
 
-    if (!student) return;
+    clearInterval(timerInterval);
+
+    const student = JSON.parse(localStorage.getItem("student"));
+
+    const urlParams = new URLSearchParams(window.location.search);
+
+    const testId = urlParams.get("testId");
+
+    if (!student) {
+
+        alert("Student not found.");
+
+        window.location.href = "login.html";
+
+        return;
+
+    }
+
+    if (!isAuto) {
+
+        const confirmSubmit = confirm(
+            "Are you sure you want to submit the test?"
+        );
+
+        if (!confirmSubmit) {
+
+            startTimer();
+
+            return;
+
+        }
+
+    }
 
     try {
-        const result = await apiCall('submitTest', {
+
+        console.log("Submitting Answers:", answers);
+
+        const result = await apiCall("submitTest", {
+
             studentId: student.studentId,
+
             testId: testId,
+
             answers: answers
+
         });
 
-        localStorage.setItem('latestResult', JSON.stringify(result));
+        if (!result.success) {
+
+            alert(result.message);
+
+            return;
+
+        }
+
+        localStorage.setItem(
+            "latestResult",
+            JSON.stringify(result)
+        );
+
         window.location.href = "result.html";
-    } catch (err) {
-        console.error(err);
+
     }
+
+    catch (err) {
+
+        console.error(err);
+
+        alert("Failed to submit test.");
+
+    }
+
 }
+
+// ==========================================
+// SUBMIT BUTTON
+// ==========================================
 
 function submitTestEarly() {
-    if (confirm("Are you sure you want to submit the test now?")) {
-        submitTest();
-    }
+
+    submitTest(false);
+
 }
 
-window.onload = loadTest;
+// ==========================================
+// START PAGE
+// ==========================================
+
+window.onload = function () {
+
+    loadTest();
+
+};
