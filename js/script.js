@@ -2,7 +2,7 @@
 // Common utilities
 function getWebAppUrl() {
     // Replace with your actual deployed Google Apps Script Web App URL
-    return "https://script.google.com/macros/s/YOUR_WEB_APP_ID/exec";
+    return "https://script.google.com/macros/s/AKfycbyml1-OMcWE8Dj-MN8PvPq5uzEykjY-S_mKvRbMe8QnSyE0VRQTGpUZPNnUApvKDQypMg/exec";
 }
 
 function showToast(message, type = "success") {
