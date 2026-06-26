@@ -1,6 +1,6 @@
 // script.js
 
-const API_URL = "https://script.google.com/macros/s/AKfycbzNAZOLSluZvYU0G_fc_yszTUIA1O5bEQ2UtdzFjwK0pLojzhX1V2F8f2BK9c6j5sKFYg/exec";
+const API_URL = "https://script.google.com/macros/s/AKfycbwySiKoGqJ1t41MtSW_nobc8H_-YsmCJQgvqjrwmY8qX5ghq4lsJTfUemIW3K_nz11baw/exec";
 
 async function apiCall(action, data = null) {
 
