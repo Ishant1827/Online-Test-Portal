@@ -3,7 +3,7 @@ const API_URL = "https://script.google.com/macros/s/AKfycbx1GZQu9f4NMM_suyGLKml4
 
 async function apiCall(action, data = null) {
     try {
-        let url = `${API_URL}?action=${action}`;
+        let url = `${https://script.google.com/macros/s/AKfycbx1GZQu9f4NMM_suyGLKml40Ivns5Y1wx05mg38jG41lIOwe0M1kROPW9Kk4FxeE61rBA/exec}?action=${action}`;
         
         const options = {
             method: data ? 'POST' : 'GET',
