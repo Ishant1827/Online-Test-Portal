@@ -8212,6 +8212,233 @@ html{
 
 }
 
+/* ==========================================
+        PREMIUM JUMP TO QUESTIONS
+========================================== */
+
+.question-nav{
+
+    background:rgba(15,23,42,.95);
+
+    backdrop-filter:blur(20px);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    border-radius:22px;
+
+    padding:24px;
+
+    box-shadow:0 20px 45px rgba(0,0,0,.30);
+
+}
+
+.question-nav h3{
+
+    font-size:20px;
+
+    color:#fff;
+
+    margin-bottom:8px;
+
+}
+
+.question-nav p{
+
+    color:#94a3b8;
+
+    font-size:14px;
+
+    margin-bottom:20px;
+
+}
+
+/* ==========================================
+        QUESTION GRID
+========================================== */
+
+.question-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fill,minmax(48px,1fr));
+
+    gap:12px;
+
+}
+
+/* ==========================================
+        QUESTION BUTTON
+========================================== */
+
+.question-btn{
+
+    width:48px;
+
+    height:48px;
+
+    border:none;
+
+    border-radius:14px;
+
+    background:#1e293b;
+
+    color:#fff;
+
+    font-size:15px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:.3s ease;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+}
+
+.question-btn:hover{
+
+    transform:translateY(-4px);
+
+    background:#2563eb;
+
+    box-shadow:0 10px 25px rgba(37,99,235,.35);
+
+}
+
+/* ==========================================
+        CURRENT QUESTION
+========================================== */
+
+.question-btn.current{
+
+    background:linear-gradient(135deg,#2563eb,#38bdf8);
+
+    color:#fff;
+
+    transform:scale(1.08);
+
+    box-shadow:0 15px 30px rgba(37,99,235,.40);
+
+}
+
+/* ==========================================
+        ANSWERED
+========================================== */
+
+.question-btn.answered{
+
+    background:#22c55e;
+
+}
+
+.question-btn.answered:hover{
+
+    background:#16a34a;
+
+}
+
+/* ==========================================
+        REVIEW
+========================================== */
+
+.question-btn.review{
+
+    background:#f59e0b;
+
+}
+
+/* ==========================================
+        NOT VISITED
+========================================== */
+
+.question-btn.not-visited{
+
+    background:#334155;
+
+}
+
+/* ==========================================
+        LEGEND
+========================================== */
+
+.palette-legend{
+
+    display:grid;
+
+    grid-template-columns:repeat(2,1fr);
+
+    gap:12px;
+
+    margin-top:25px;
+
+}
+
+.legend-item{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    font-size:14px;
+
+    color:#cbd5e1;
+
+}
+
+.legend-dot{
+
+    width:16px;
+
+    height:16px;
+
+    border-radius:5px;
+
+}
+
+.legend-dot.current{
+
+    background:#2563eb;
+
+}
+
+.legend-dot.answered{
+
+    background:#22c55e;
+
+}
+
+.legend-dot.review{
+
+    background:#f59e0b;
+
+}
+
+.legend-dot.not-visited{
+
+    background:#334155;
+
+}
+
+/* ==========================================
+        MOBILE
+========================================== */
+
+@media(max-width:768px){
+
+    .question-grid{
+
+        grid-template-columns:repeat(5,1fr);
+
+    }
+
+}
 /*==============================
         END
 ==============================*/
