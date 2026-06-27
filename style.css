@@ -5621,6 +5621,376 @@ footer a:hover{
 }
 
 /*==================================================
+        PREMIUM JUMP TO QUESTIONS
+==================================================*/
+
+.question-nav{
+
+    position:sticky;
+    top:20px;
+
+    background:rgba(15,23,42,.92);
+    backdrop-filter:blur(18px);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    border-radius:24px;
+
+    padding:24px;
+
+    box-shadow:
+    0 20px 45px rgba(0,0,0,.30);
+
+}
+
+/*--------------------*/
+
+.question-nav h3{
+
+    color:#fff;
+
+    font-size:22px;
+
+    margin-bottom:6px;
+
+}
+
+.question-nav p{
+
+    color:#94a3b8;
+
+    font-size:14px;
+
+    margin-bottom:22px;
+
+}
+
+/*==================================================
+                PROGRESS
+==================================================*/
+
+.palette-progress{
+
+    width:100%;
+
+    height:10px;
+
+    background:#1e293b;
+
+    border-radius:30px;
+
+    overflow:hidden;
+
+    margin-bottom:25px;
+
+}
+
+.palette-progress span{
+
+    display:block;
+
+    width:65%;      /* JS se change krna */
+
+    height:100%;
+
+    border-radius:30px;
+
+    background:linear-gradient(
+    90deg,
+    #2563eb,
+    #38bdf8);
+
+}
+
+/*==================================================
+              QUESTION GRID
+==================================================*/
+
+.question-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(5,1fr);
+
+    gap:14px;
+
+}
+
+/*==================================================
+            QUESTION BUTTON
+==================================================*/
+
+.question-btn{
+
+    width:50px;
+
+    height:50px;
+
+    border:none;
+
+    border-radius:16px;
+
+    cursor:pointer;
+
+    font-size:15px;
+
+    font-weight:700;
+
+    color:#fff;
+
+    background:#1e293b;
+
+    transition:.30s;
+
+    position:relative;
+
+    overflow:hidden;
+
+}
+
+/* Hover */
+
+.question-btn:hover{
+
+    transform:
+    translateY(-4px)
+    scale(1.05);
+
+    background:#334155;
+
+}
+
+/* Shine */
+
+.question-btn::before{
+
+    content:"";
+
+    position:absolute;
+
+    top:0;
+
+    left:-120%;
+
+    width:50%;
+
+    height:100%;
+
+    transform:skewX(-25deg);
+
+    background:
+
+    linear-gradient(
+
+    90deg,
+
+    transparent,
+
+    rgba(255,255,255,.35),
+
+    transparent);
+
+}
+
+.question-btn:hover::before{
+
+    left:150%;
+
+    transition:.7s;
+
+}
+
+/*==================================================
+        CURRENT
+==================================================*/
+
+.question-btn.current{
+
+    background:
+
+    linear-gradient(
+
+    135deg,
+
+    #2563eb,
+
+    #38bdf8);
+
+    transform:scale(1.1);
+
+    box-shadow:
+
+    0 15px 30px rgba(37,99,235,.45);
+
+}
+
+/*==================================================
+        ANSWERED
+==================================================*/
+
+.question-btn.answered{
+
+    background:#22c55e;
+
+}
+
+/*==================================================
+        REVIEW
+==================================================*/
+
+.question-btn.review{
+
+    background:#f59e0b;
+
+}
+
+/*==================================================
+        SKIPPED
+==================================================*/
+
+.question-btn.skipped{
+
+    background:#ef4444;
+
+}
+
+/*==================================================
+        LEGEND
+==================================================*/
+
+.palette-legend{
+
+    margin-top:28px;
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:12px;
+
+}
+
+.legend{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    color:#cbd5e1;
+
+    font-size:14px;
+
+}
+
+.legend span{
+
+    width:18px;
+
+    height:18px;
+
+    border-radius:6px;
+
+}
+
+.legend .blue{
+
+    background:#2563eb;
+
+}
+
+.legend .green{
+
+    background:#22c55e;
+
+}
+
+.legend .orange{
+
+    background:#f59e0b;
+
+}
+
+.legend .red{
+
+    background:#ef4444;
+
+}
+
+/*==================================================
+            SUMMARY
+==================================================*/
+
+.palette-summary{
+
+    margin-top:30px;
+
+    padding-top:22px;
+
+    border-top:1px solid rgba(255,255,255,.08);
+
+}
+
+.summary-box{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    margin-bottom:14px;
+
+    color:#cbd5e1;
+
+}
+
+.summary-box strong{
+
+    color:#fff;
+
+}
+
+/*==================================================
+        MOBILE
+==================================================*/
+
+@media(max-width:768px){
+
+.question-nav{
+
+position:relative;
+
+top:0;
+
+}
+
+.question-grid{
+
+grid-template-columns:repeat(5,1fr);
+
+gap:10px;
+
+}
+
+.question-btn{
+
+width:45px;
+
+height:45px;
+
+font-size:14px;
+
+}
+
+.palette-legend{
+
+grid-template-columns:1fr;
+
+}
+
+}
+
+/*==================================================
                 PART 3A-1
         RESULT PAGE • HEADER • SCORE CARD
 ====================================================*/
