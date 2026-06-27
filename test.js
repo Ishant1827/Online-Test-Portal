@@ -363,3 +363,116 @@ window.onload = function () {
     loadTest();
 
 };
+
+// ===============================
+// Anti-Cheating Security
+// Paste this in test.js
+// Call setupSecurity() when the test starts
+// ===============================
+
+function setupSecurity() {
+
+    // Enter Fullscreen
+    if (document.documentElement.requestFullscreen) {
+        document.documentElement.requestFullscreen().catch(() => {});
+    }
+
+    // Detect Tab Switch / Minimize
+    document.addEventListener("visibilitychange", function () {
+        if (document.hidden) {
+            endTest("You switched tabs.");
+        }
+    });
+
+    // Detect Window Blur
+    window.addEventListener("blur", function () {
+        endTest("You left the exam window.");
+    });
+
+    // Detect Exit Fullscreen
+    document.addEventListener("fullscreenchange", function () {
+        if (!document.fullscreenElement) {
+            endTest("You exited fullscreen.");
+        }
+    });
+
+    // Disable Right Click
+    document.addEventListener("contextmenu", function (e) {
+        e.preventDefault();
+    });
+
+    // Disable Common Shortcuts
+    document.addEventListener("keydown", function (e) {
+
+        // F12
+        if (e.key === "F12") {
+            e.preventDefault();
+            return;
+        }
+
+        // Ctrl + Shift + I / J / C
+        if (
+            e.ctrlKey &&
+            e.shiftKey &&
+            ["I", "J", "C"].includes(e.key.toUpperCase())
+        ) {
+            e.preventDefault();
+            return;
+        }
+
+        // Ctrl + U
+        if (e.ctrlKey && e.key.toLowerCase() === "u") {
+            e.preventDefault();
+            return;
+        }
+
+        // Ctrl + C
+        if (e.ctrlKey && e.key.toLowerCase() === "c") {
+            e.preventDefault();
+            return;
+        }
+
+        // Ctrl + V
+        if (e.ctrlKey && e.key.toLowerCase() === "v") {
+            e.preventDefault();
+            return;
+        }
+
+        // Ctrl + X
+        if (e.ctrlKey && e.key.toLowerCase() === "x") {
+            e.preventDefault();
+            return;
+        }
+
+        // Ctrl + S
+        if (e.ctrlKey && e.key.toLowerCase() === "s") {
+            e.preventDefault();
+            return;
+        }
+
+        // Ctrl + P
+        if (e.ctrlKey && e.key.toLowerCase() === "p") {
+            e.preventDefault();
+            return;
+        }
+    });
+
+}
+
+// Function to End Test
+function endTest(message) {
+
+    alert(message + "\n\nYour test has been terminated.");
+
+    // Call your submit function
+    if (typeof submitTest === "function") {
+        submitTest();
+    } else {
+        window.location.href = "result.html";
+    }
+}
+
+// Start Security
+document.addEventListener("DOMContentLoaded", function () {
+    setupSecurity();
+});
